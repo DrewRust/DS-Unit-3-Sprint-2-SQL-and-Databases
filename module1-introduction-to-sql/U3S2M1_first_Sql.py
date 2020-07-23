@@ -139,6 +139,7 @@ df10 = pd.DataFrame(data=result10, columns=columns10)
 
 
 # How many Weapons does each character have? (Return first 20 rows)
+# Could change the order of the columns to match below but otherwise it works.
 curs_11 = conn.cursor()
 query_11 = '''
 SELECT
@@ -155,18 +156,18 @@ result11 = curs_11.execute(query_11).fetchall()
 columns11 = list(map(lambda x:x[0], curs_11.description))
 df11 = pd.DataFrame(data=result11, columns=columns11)
 pd_series11 = (df11['character_id'].value_counts()) # turn into series
-frame = {'Weapon_Count': pd_series11} # now that I have count turn back into df
+frame = {'weapon_count': pd_series11} # now that I have count turn back into df
 final_frame = pd.DataFrame(frame)
-final_frame.index.name = 'character_ID'
-final_frame = final_frame.sort_values(by='Character_ID', ascending=True)
+final_frame.index.name = 'character_id'
+final_frame = final_frame.sort_values(by='character_id', ascending=True)
 final_frame.reset_index(inplace=True)
 
 
 # On average, how many Items does each Character have?
-# To do
+average_items = df10["COUNT(item_id)"].mean()
 
 # On average, how many Weapons does each character have?
-# To do
+average_weapons = final_frame['weapon_count'].mean()
 
 # Setting Variables
 # unique_names = (df3['name'].nunique())
@@ -195,6 +196,8 @@ print("\nBelow are the first 20 Armory Item Counts for each Character.")
 print(df10.head(20))
 print("\nBelow are the first 20 Weapon Counts for each Character ID.")
 print(final_frame.head(20))
+print("\nThe average items that each character has is " + str(round(average_items, 2)))
+print("\nThe average weapons that each character has is " + str(round(average_weapons, 2)) + "\n")
 print("\n")
 
 
