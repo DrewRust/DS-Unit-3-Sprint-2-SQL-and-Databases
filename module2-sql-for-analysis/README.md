@@ -1,4 +1,4 @@
-# SQL for Analysis
+# SQL for Analysis - Assignment Complete Commited first 20 rows of Titanic csv dataset to ElephantSql
 
 SQL is simple, but surprisingly powerful - many data pipelines start, and even
 end, with it.
