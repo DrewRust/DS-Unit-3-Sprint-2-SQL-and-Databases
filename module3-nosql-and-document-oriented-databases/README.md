@@ -1,3 +1,19 @@
+# Answers to Homework Questions:
+
+## How was working with MongoDB different from working with PostgreSQL? 
+
+- PostgreSQL is object relational database
+- MongoDB uses JSON like documents to store schema-free data in other words they do not require a predefined structure.
+- PostgreSQL required a cursor object.
+
+
+## What was easier, and what was harder?
+
+- MongoDB once we connected was much easier.  We didn't have to use an ERD or an entity relational database diagram.  There was no having to figure out relationships among tables.
+
+- I still liked PostgreSQL though and after working with it more I could see how it could become second nature.  Just initially the learning curve might be steeper.  
+
+
 # NoSQL and Document-oriented databases
 
 NoSQL, no worries? Not exactly, but it's still a powerful approach for some
