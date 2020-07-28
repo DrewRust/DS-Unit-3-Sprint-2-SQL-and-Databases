@@ -5,6 +5,7 @@ import json
 import pymongo
 from dotenv import load_dotenv
 from pdb import set_trace as breakpoint
+from my_sql_to_mongo import put_sqltable_in_dict
 
 load_dotenv()
 
@@ -23,17 +24,18 @@ print("----------------")
 print("\n")
 print("CLIENT:", type(client), client)
 print("\n")
-print("These are your database names: \n")
-print(client.list_database_names())
-print("\n")
-db = client.sample_analytics
-print("These are the list of collection names: \n")
-print(db.list_collection_names())
-print("\n")
-customers = db.customers
-print("These are how many customer documents we have: \n")
-print(customers.count_documents({}))
-print("\n")
+# print("These are your database names: \n")
+# print(client.list_database_names())
+# print("\n")
+
+# db = client.sample_analytics
+# print("These are the list of collection names: \n")
+# print(db.list_collection_names())
+# print("\n")
+# customers = db.customers
+# print("These are how many customer documents we have: \n")
+# print(customers.count_documents({}))
+# print("\n")
 
 #
 #### Write JSON Data from RPG DB to MongoDB
@@ -42,18 +44,27 @@ print("\n")
 # (copied from: 
 # https://raw.githubusercontent.com/LambdaSchool/Django-RPG/master/testdata.json)
 
-with open('test_data_json.txt') as json_file:
-    rpg_data = json.load(json_file)
+# with open('test_data_json.txt') as json_file:
+#     rpg_data = json.load(json_file)
 
-# Create an rpg_data database
+# # Create an rpg_data database
 my_db = client.rpg_data
 
-# Create a characters collection in the rpg_data DB
-character_table = my_db.characters
+# importing this from the other file my_sql_to_mongo
+dictionary = put_sqltable_in_dict()
+# print(dictionary)
 
-# Insert the JSON data into characters collection
-character_table.insert_many(rpg_data)
-print(character_table.count_documents({}))
+# create armory_items table on mongodb
+armory_table = my_db.armory_collection
+armory_table.insert_many(dictionary)
+print(armory_table.count_documents({}))
+
+# # Create a characters collection in the rpg_data DB
+# character_table = my_db.characters
+
+# # Insert the JSON data into characters collection
+# character_table.insert_many(rpg_data)
+# print(character_table.count_documents({}))
 
 
 # breakpoint()
