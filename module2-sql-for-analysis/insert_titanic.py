@@ -1,3 +1,9 @@
+######## ONLY WORKS UNTIL IT HITS SOME WEIRD CHARACTERS IN THE .CSV FILE
+######## IT WILL WORK FOR THE FIRST 20 rows
+######## SEE working_solution.py
+
+
+
 #### imports
 import os
 import sqlite3
@@ -22,15 +28,22 @@ conn = psycopg2.connect(dbname=DB_NAME,
 #### create cursor object to connection
 postGres_cursor2 = conn.cursor()
 
+# print(conn)
+# print(postGres_cursor2)
+
+
 #### read in titanic csv
-read_titanic = pd.read_csv (r'titanic.csv', nrows=20)
+# read_titanic = pd.read_csv(r'titanic.csv', nrows=887)
+read_titanic = pd.read_csv(r'titanic.csv', nrows=20)
+# print(read_titanic.shape)
+
 
 #### create empty SQL table if it doesn't already exist
 create_titanic_table_query = '''
 CREATE TABLE IF NOT EXISTS titanic (
     id SERIAL PRIMARY KEY,
     survived INT,
-	name VARCHAR(60),
+	name VARCHAR(80),
 	sex VARCHAR(10),
 	age REAL,
 	fare REAL,
@@ -60,12 +73,12 @@ x = 1
 for ind in read_titanic.index:
     insertPassengerIntoTable(
         x, 
-        read_titanic['Survived'][ind], 
-        read_titanic['Name'][ind], 
-        read_titanic['Sex'][ind], 
-        read_titanic['Age'][ind], 
-        read_titanic['Fare'][ind], 
-        read_titanic['Pclass'][ind], 
+        read_titanic["Survived"][ind], 
+        read_titanic["Name"][ind], 
+        read_titanic["Sex"][ind], 
+        read_titanic["Age"][ind], 
+        read_titanic["Fare"][ind], 
+        read_titanic["Pclass"][ind], 
         read_titanic["Siblings/Spouses Aboard"][ind], 
         read_titanic["Parents/Children Aboard"][ind]
         )
